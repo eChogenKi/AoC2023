@@ -95,7 +95,7 @@ $collection = foreach ($set in $puzzle) {
     } elseif ($cards -like "*J*") {
         $cardMakeup | ? { $_ -ne "J" } | % { $tempHash["$_"] += 1}
         $tempHash = $tempHash.GetEnumerator() | Sort-Object Value -Descending
-        if ($tempHash.GetType().Name -eq "Hashtable") {
+        if ($tempHash.GetType().Name -eq "Object[]") {
             $highestValue = ($tempHash.GetEnumerator() | ? { $_.Value -ge 1 } | Select-Object -First 1).Value
             $most = ($tempHash.GetEnumerator() | ? { $_.Value -eq $highestValue }).Name
             if ($most.Count -gt 1) {
@@ -148,8 +148,3 @@ foreach ($setup in $finalResult) {
     $total += ([int]$setup.Bid * [int]$rank)
     $rank += 1
 }
-
-# Total not right: 251903187
-# 2: 250685668
-# 3: 251510440
-# 4: 251542229 | 5 minutes to test result...............
